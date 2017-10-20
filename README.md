@@ -1,31 +1,20 @@
 # artist-time-calc
 Console app for calculating time spent on creative work to comply with Polish Labor Law.
 
-## Installation
-
-Download from http://example.com/FIXME.
-
 ## Usage
 
-FIXME: explanation
+1. Install Leiningen from https://leiningen.org/
+2. Add lein to path if needed
+3. Clone
+4. $ lein run
+
+or
 
     $ java -jar artist-time-calc-0.1.0-standalone.jar [args]
 
 ## Options
 
 FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
 
 ## License
 
