@@ -30,6 +30,21 @@
                (dec remaining-surplus-h))
         calendar))))
 
+(defn two-various-days [calendar]
+  (let [fir-day (rand-nth calendar)
+        cal-removed-fir-day (remove (fn [x] (= (x :day) (fir-day :day))) calendar)
+        sec-day (rand-nth cal-removed-fir-day)]
+    (vector [fir-day sec-day])))
+
+(defn randomize-calendar
+  "Randomizes passed calendar using randomization level from the sec func arg"
+  [calendar rand-lvl]
+  (loop [i rand-lvl
+         days-to-unbalance (two-various-days calendar)]))
+;; TODO: in a recursive loop (done number of rand-lvl)
+;; TODO: try to unbalance two days (subtract hour from first and add to second)
+;; TODO: and recreate calendar (remember about sorting) passing it to recur
+
 (defn -main
   [& args]
   (print-table (calc-calendar))
