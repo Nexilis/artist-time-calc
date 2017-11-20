@@ -25,8 +25,8 @@
       (if (<= i (config :wr-days))
         (recur (inc i)
                (conj calendar {:day i
-                               :cr-h cr-h-this-day
-                               :wr-h (- (config :wr-h-per-day) cr-h-this-day)})
+                               :wr-h (- (config :wr-h-per-day) cr-h-this-day)
+                               :cr-h cr-h-this-day})
                (dec remaining-surplus-h))
         calendar))))
 
