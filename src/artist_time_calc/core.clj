@@ -6,7 +6,7 @@
 ; cr - copyrighted
 ; h  - hours
 
-(def config {:wr-days 20 :wr-h-per-day 8 :cr-percentage 0.7})
+(def config {:wr-days 20 :wr-h-per-day 8 :cr-percentage 0.7 :randomization-lvl 10})
 
 (def cr-total-h (int (Math/floor (reduce * (vals config)))))
 (def cr-base-h-per-day (int (Math/floor (/ cr-total-h (config :wr-days)))))
@@ -34,16 +34,24 @@
   (let [fir-day (rand-nth calendar)
         cal-removed-fir-day (remove (fn [x] (= (x :day) (fir-day :day))) calendar)
         sec-day (rand-nth cal-removed-fir-day)]
-    (vector [fir-day sec-day])))
+    (vector fir-day sec-day)))
+
+(defn single-calendar-randomization
+  [calendar days-to-unbalance])
+;; TODO: try to unbalance two days (subtract hour from first and add to second)
+;; TODO: return new calendar, remember about sorting by :day
 
 (defn randomize-calendar
-  "Randomizes passed calendar using randomization level from the sec func arg"
-  [calendar rand-lvl]
-  (loop [i rand-lvl
-         days-to-unbalance (two-various-days calendar)]))
-;; TODO: in a recursive loop (done number of rand-lvl)
-;; TODO: try to unbalance two days (subtract hour from first and add to second)
-;; TODO: and recreate calendar (remember about sorting) passing it to recur
+  "Randomizes passed calendar according to randomization lvl"
+  [calendar]
+  (loop [i 1
+         days-to-unbalance (two-various-days calendar)
+         rand-calendar calendar]
+    (if (= i (config :randomization-lvl))
+      rand-calendar
+      (recur (inc i)
+             (two-various-days rand-calendar)
+             (single-calendar-randomization rand-calendar days-to-unbalance)))))
 
 (defn -main
   [& args]
