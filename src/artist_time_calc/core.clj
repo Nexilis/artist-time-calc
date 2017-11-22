@@ -6,8 +6,8 @@
 ; cr - copyrighted
 ; h  - hours
 
-(def config {:wr-days 20 :wr-h-per-day 8 :cr-percentage 0.7 :randomization-lvl 10})
-
+(def config {:wr-days 20 :wr-h-per-day 8 :cr-percentage 0.7})
+(def randomization-lvl 20)
 (def cr-total-h (int (Math/floor (reduce * (vals config)))))
 (def cr-base-h-per-day (int (Math/floor (/ cr-total-h (config :wr-days)))))
 (def cr-surplus-h (int (mod cr-total-h (config :wr-days))))
@@ -47,7 +47,7 @@
   (loop [i 1
          days-to-unbalance (two-various-days calendar)
          rand-calendar calendar]
-    (if (= i (config :randomization-lvl))
+    (if (= i randomization-lvl)
       rand-calendar
       (recur (inc i)
              (two-various-days rand-calendar)
