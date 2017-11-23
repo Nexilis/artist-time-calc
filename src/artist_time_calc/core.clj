@@ -68,11 +68,19 @@
              (two-various-days)
              (single-calendar-randomization rand-calendar days-pair)))))
 
+(defn reduce-cr-h-to-sum [calendar]
+  (reduce (fn [accumulator day] (+ accumulator (day :cr-h)))
+          0 ;; accumulator's initial value
+          calendar))
+;; TODO: generalize reducer by replacing :cr-h with key from function's args
+
 (defn -main
   [& args]
   ;; TODO: add unit tests summing cr-h and comparing with cr-total-h, etc
-  (print-table (randomize-calendar (calc-calendar)))
-  (println "Total worked hours:" wr-total-h)
-  (println "Total copyrighted hours:" cr-total-h)
-  (println "Base copyrighted hours per day:" cr-base-h-per-day)
-  (println "Surplus copyrighted hours:" cr-surplus-h))
+  (let [calendar (randomize-calendar (calc-calendar))]
+    (print-table calendar)
+    (println "Total worked hours (expected):" wr-total-h)
+    (println "Total worked hours (in calendar):" (reduce-cr-h-to-sum calendar))
+    (println "Total copyrighted hours:" cr-total-h)
+    (println "Base copyrighted hours per day:" cr-base-h-per-day)
+    (println "Surplus copyrighted hours:" cr-surplus-h)))
