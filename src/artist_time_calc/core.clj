@@ -9,7 +9,7 @@
 (def config {:wr-days 20
              :wr-h-per-day 8
              :cr-percentage 0.7
-             :randomization-lvl 20})
+             :randomization-lvl 10})
 
 (def cr-total-h (int (Math/floor (* (config :wr-days)
                                     (config :wr-h-per-day)
@@ -35,39 +35,38 @@
                (dec remaining-surplus-h))
         calendar))))
 
-(defn two-various-days [calendar]
-  (let [fir-day (rand-nth calendar)
-        cal-removed-fir-day (remove
-                              (fn [x] (= (x :day) (fir-day :day)))
-                              calendar)
-        sec-day (rand-nth cal-removed-fir-day)]
+(defn two-various-days []
+  (let [num-days (range (config :wr-days))
+        fir-day (rand-nth num-days)
+        num-days (remove (fn [x] (= x fir-day)) num-days)
+        sec-day (rand-nth num-days)]
     (vector fir-day sec-day)))
-;; TODO: instead create vector from [0...:wr-days-1] and rand-nth two indexes
 
 (defn single-calendar-randomization
-  [calendar days-to-unbalance]
-  (let [fir-day (get days-to-unbalance 0)
-        sec-day (get days-to-unbalance 1)]
-    (update-in
-      (update-in
-        (update-in
-          (update-in calendar [(- (fir-day :day) 1) :wr-h] inc)
-          [(- (fir-day :day) 1) :cr-h] dec)
-        [(- (sec-day :day) 1) :wr-h] dec)
-      [(- (sec-day :day) 1) :cr-h] inc)))
+  [calendar days-pair]
+  (let [fir-day (get days-pair 0)
+        sec-day (get days-pair 1)]
+    (let [rand-calendar (update-in
+                          (update-in
+                            (update-in
+                              (update-in calendar [fir-day :wr-h] inc)
+                              [fir-day :cr-h] dec)
+                            [sec-day :wr-h] dec)
+                          [sec-day :cr-h] inc)]
+      rand-calendar)))
 ;; TODO: prevent randomization to create negative values
 
 (defn randomize-calendar
   "Randomizes passed calendar according to randomization lvl"
   [calendar]
-  (loop [i 1
-         days-to-unbalance (two-various-days calendar)
+  (loop [i 0
+         days-pair (two-various-days)
          rand-calendar calendar]
     (if (= i (config :randomization-lvl))
       rand-calendar
       (recur (inc i)
-             (two-various-days rand-calendar)
-             (single-calendar-randomization rand-calendar days-to-unbalance)))))
+             (two-various-days)
+             (single-calendar-randomization rand-calendar days-pair)))))
 
 (defn -main
   [& args]
