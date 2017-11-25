@@ -35,14 +35,18 @@
                (dec remaining-surplus-h))
         calendar))))
 
-(defn two-various-days []
+;; TODO: move randomization to separate namespace
+(defn- two-various-days []
   (let [num-days (range (config :wr-days))
         fir-day (rand-nth num-days)
         num-days (remove (fn [x] (= x fir-day)) num-days)
         sec-day (rand-nth num-days)]
     (vector fir-day sec-day)))
 
-(defn single-calendar-randomization
+(defn- negative-val-in-column? [calendar column]
+  (some (fn [x] (< (x column) 0)) calendar))
+
+(defn- single-calendar-randomization
   [calendar days-pair]
   (let [fir-day (get days-pair 0)
         sec-day (get days-pair 1)]
@@ -53,8 +57,7 @@
                               [fir-day :cr-h] dec)
                             [sec-day :wr-h] dec)
                           [sec-day :cr-h] inc)]
-      rand-calendar)))
-;; TODO: prevent randomization to create negative values
+      (if (negative-val-in-column? rand-calendar :wr-h) calendar rand-calendar))))
 
 (defn randomize-calendar
   "Randomizes passed calendar according to randomization lvl"
@@ -68,19 +71,19 @@
              (two-various-days)
              (single-calendar-randomization rand-calendar days-pair)))))
 
-(defn reduce-cr-h-to-sum [calendar]
-  (reduce (fn [accumulator day] (+ accumulator (day :cr-h)))
+(defn reduce-column-to-sum [calendar column]
+  (reduce (fn [accumulator day] (+ accumulator (day column)))
           0 ;; accumulator's initial value
           calendar))
-;; TODO: generalize reducer by replacing :cr-h with key from function's args
 
+;; TODO: add possibility to pass config values from terminal
 (defn -main
   [& args]
   ;; TODO: add unit tests summing cr-h and comparing with cr-total-h, etc
   (let [calendar (randomize-calendar (calc-calendar))]
     (print-table calendar)
     (println "Total worked hours (expected):" wr-total-h)
-    (println "Total worked hours (in calendar):" (reduce-cr-h-to-sum calendar))
+    (println "Total worked hours (in calendar):" (reduce-column-to-sum calendar :cr-h))
     (println "Total copyrighted hours:" cr-total-h)
     (println "Base copyrighted hours per day:" cr-base-h-per-day)
     (println "Surplus copyrighted hours:" cr-surplus-h)))
