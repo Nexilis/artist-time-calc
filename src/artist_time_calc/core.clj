@@ -1,5 +1,5 @@
 (ns artist-time-calc.core (:gen-class))
-(use '[artist-time-calc.config :only [config]])
+(use 'artist-time-calc.conf)
 (use 'artist-time-calc.rand)
 (use 'clojure.pprint)
 ; Dictionary:
@@ -7,18 +7,14 @@
 ; cr - copyrighted
 ; h  - hours
 
-(def cr-total-h (int (Math/floor (* (config :wr-days)
-                                    (config :wr-h-per-day)
-                                    (config :cr-percentage)))))
-(def cr-base-h-per-day (int (Math/floor (/ cr-total-h (config :wr-days)))))
-(def cr-surplus-h (int (mod cr-total-h (config :wr-days))))
-(def wr-total-h (* (config :wr-days) (config :wr-h-per-day)))
-
-(defn calc-cr-h-this-day [remaining-surplus-h]
+(defn- calc-cr-h-this-day [remaining-surplus-h]
   (+ cr-base-h-per-day
      (if (> remaining-surplus-h 0) 1 0)))
 
-(defn calc-calendar []
+(defn calc-calendar
+  "Returns calendar (in a vector) where each day is represented by
+  a dictionary {:day :wr-h :cr-h}"
+  []
   (loop [i 1
          calendar []
          remaining-surplus-h cr-surplus-h]
@@ -31,7 +27,7 @@
                (dec remaining-surplus-h))
         calendar))))
 
-(defn reduce-column-to-sum [calendar column]
+(defn- reduce-column-to-sum [calendar column]
   (reduce (fn [accumulator day] (+ accumulator (day column)))
           0 ;; accumulator's initial value
           calendar))
@@ -40,7 +36,7 @@
 (defn -main
   [& args]
   ;; TODO: add unit tests summing cr-h and comparing with cr-total-h, etc
-  (let [calendar (randomize-calendar (calc-calendar) (config :randomization-lvl))]
+  (let [calendar (randomize-calendar (calc-calendar))]
     (print-table calendar)
     (println "Total worked hours (expected):" wr-total-h)
     (println "Total worked hours (in calendar):" (reduce-column-to-sum calendar :cr-h))
