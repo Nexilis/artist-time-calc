@@ -18,11 +18,11 @@
     (let [rand-calendar (update-in
                           (update-in
                             (update-in
-                              (update-in calendar [fir-day :wr-h] inc)
+                              (update-in calendar [fir-day :not-cr-h] inc)
                               [fir-day :cr-h] dec)
-                            [sec-day :wr-h] dec)
+                            [sec-day :not-cr-h] dec)
                           [sec-day :cr-h] inc)]
-      (if (negative-val-in-column? rand-calendar :wr-h) calendar rand-calendar))))
+      (if (negative-val-in-column? rand-calendar :not-cr-h) calendar rand-calendar))))
 
 (defn randomize-calendar
   "Randomizes passed calendar according to randomization lvl"
