@@ -1,5 +1,10 @@
 (ns artist-time-calc.conf)
 
+; Dictionary:
+; wr - worked
+; cr - copyrighted
+; h  - hours
+
 (def config {:wr-days 20
              :wr-h-per-day 8
              :cr-percentage 0.7

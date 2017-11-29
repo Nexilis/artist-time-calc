@@ -1,5 +1,7 @@
 (ns artist-time-calc.init
-  (:use artist-time-calc.conf))
+  (:require [artist-time-calc.conf :refer :all]
+            [clojure.spec.alpha :as s]))
+; TODO: try to use spec - https://clojure.org/guides/spec
 
 (defn- calc-cr-h-this-day [remaining-surplus-h]
   (+ cr-base-h-per-day

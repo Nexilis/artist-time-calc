@@ -1,5 +1,5 @@
 (ns artist-time-calc.rand
-  (:use artist-time-calc.conf))
+  (:require [artist-time-calc.conf :refer :all]))
 
 (defn- two-various-days []
   (let [num-days (range (config :wr-days))
