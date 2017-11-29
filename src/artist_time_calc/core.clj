@@ -25,5 +25,4 @@
     (println "Total copyrighted hours (expected):" cr-total-h)
     (println "Total not-copyrighted hours (in calendar):" (reduce-column-to-sum calendar :not-cr-h))
     (println "Total not-copyrighted hours (expected):" (- wr-total-h cr-total-h))
-    (println "Base copyrighted hours per day:" cr-base-h-per-day)
-    (println "Surplus copyrighted hours:" cr-surplus-h)))
+    (println "Avg. copyrighted hours per day:" cr-base-h-per-day "+" cr-surplus-h "hours surplus ")))
