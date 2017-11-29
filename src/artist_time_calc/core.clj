@@ -1,7 +1,8 @@
-(ns artist-time-calc.core (:gen-class))
-(use 'artist-time-calc.conf)
-(use 'artist-time-calc.rand)
-(use 'clojure.pprint)
+(ns artist-time-calc.core
+  (:use artist-time-calc.conf)
+  (:use artist-time-calc.rand)
+  (:use [clojure.pprint :only [print-table]])
+  (:gen-class))
 ; Dictionary:
 ; wr - work
 ; cr - copyrighted
