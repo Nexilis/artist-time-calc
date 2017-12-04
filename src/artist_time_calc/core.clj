@@ -5,9 +5,14 @@
             [clojure.pprint :as pp])
   (:gen-class))
 
+(def config (calculate-config))
+
+(defn build-calendar []
+  (-> (initialize-calendar config) (randomize-calendar config)))
+
 ;; TODO: add possibility to set config values using terminal
 (defn -main
   [& args]
-  (let [calendar (-> (initialize-calendar) randomize-calendar)]
-    (pp/print-table calendar)
-    (println cr-base-h-per-day "avg. copyrighted hours per day +" cr-surplus-h "surplus hours (over avg.)")))
+  (pp/print-table (build-calendar))
+  (println (-> :cr-base-h-per-day config) "avg. copyrighted hours per day +"
+           (-> :cr-surplus-h config) "surplus hours (over avg.)"))

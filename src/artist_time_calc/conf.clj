@@ -1,26 +1,24 @@
 (ns artist-time-calc.conf)
-
 ; Dictionary:
 ; wr - worked
 ; cr - copyrighted
 ; h  - hours
 
-(def config {:wr-days 20
-             :wr-h-per-day 8
-             :cr-percentage 0.7
-             :randomization-lvl 10})
+(def def-config {:wr-days 20
+                 :wr-h-per-day 8
+                 :cr-percentage 0.7
+                 :randomization-lvl 10})
 
-(defn calculate-config [conf]
-  (let [conf (conj conf {:cr-total-h (int (Math/floor (* (conf :wr-days) (conf :wr-h-per-day) (conf :cr-percentage))))})]
-    (conj conf {:cr-base-h-per-day (int (Math/floor (/ (conf :cr-total-h) (conf :wr-days))))}
-               {:cr-surplus-h (int (mod (conf :cr-total-h) (config :wr-days)))}
-               {:wr-total-h (* (config :wr-days) (config :wr-h-per-day))}
-      conf)))
-
-
-(def cr-total-h (int (Math/floor (* (config :wr-days)
-                                    (config :wr-h-per-day)
-                                    (config :cr-percentage)))))
-(def cr-base-h-per-day (int (Math/floor (/ cr-total-h (config :wr-days)))))
-(def cr-surplus-h (int (mod cr-total-h (config :wr-days))))
-(def wr-total-h (* (config :wr-days) (config :wr-h-per-day)))
+(defn calculate-config
+  ([] (calculate-config def-config))
+  ([in-config] (let [out-config (conj in-config
+                                      {:cr-total-h (int (Math/floor (* (in-config :wr-days)
+                                                                       (in-config :wr-h-per-day)
+                                                                       (in-config :cr-percentage))))})]
+                 (conj out-config {:cr-base-h-per-day (int (Math/floor (/ (out-config :cr-total-h)
+                                                                          (out-config :wr-days))))}
+                                  {:cr-surplus-h (int (mod (out-config :cr-total-h)
+                                                           (out-config :wr-days)))}
+                                  {:wr-total-h (* (out-config :wr-days)
+                                                  (out-config :wr-h-per-day))}
+                   out-config))))
