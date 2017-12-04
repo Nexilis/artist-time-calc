@@ -8,6 +8,6 @@
 ;; TODO: add possibility to set config values using terminal
 (defn -main
   [& args]
-  (let [calendar (randomize-calendar (initialize-calendar))]
+  (let [calendar (-> (initialize-calendar) randomize-calendar)]
     (pp/print-table calendar)
     (println cr-base-h-per-day "avg. copyrighted hours per day +" cr-surplus-h "surplus hours (over avg.)")))

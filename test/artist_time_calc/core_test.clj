@@ -14,7 +14,7 @@
 
 (deftest sum-of-worked-hours
   (testing "Given default configuration when random calendar is created then sum of worked hours is correct"
-    (let [calendar (randomize-calendar (initialize-calendar))
+    (let [calendar (-> (initialize-calendar) randomize-calendar)
           expected-total-wr-h wr-total-h
           actual-total-cr-h (+ (reduce-column-to-sum calendar :cr-h)
                                (reduce-column-to-sum calendar :not-cr-h))]
@@ -22,14 +22,14 @@
 
 (deftest sum-of-copyrighted-hours
   (testing "Given default configuration when random calendar is created then sum of copyrighted hours is correct"
-    (let [calendar (randomize-calendar (initialize-calendar))
+    (let [calendar (-> (initialize-calendar) randomize-calendar)
           expected-total-cr-h cr-total-h
           actual-total-cr-h (reduce-column-to-sum calendar :cr-h)]
       (is (= expected-total-cr-h actual-total-cr-h)))))
 
 (deftest sum-of-not-copyrighted-hours
   (testing "Given default configuration when random calendar is created then sum of not-copyrighted hours is correct"
-    (let [calendar (randomize-calendar (initialize-calendar))
+    (let [calendar (-> (initialize-calendar) randomize-calendar)
           expected-total-not-cr-h (- wr-total-h cr-total-h)
           actual-total-not-cr-h (reduce-column-to-sum calendar :not-cr-h)]
       (is (= expected-total-not-cr-h actual-total-not-cr-h)))))

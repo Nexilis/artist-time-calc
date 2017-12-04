@@ -2,7 +2,7 @@
   (:require [artist-time-calc.conf :refer :all]))
 
 (defn- two-various-days []
-  (let [num-days (range (config :wr-days))
+  (let [num-days (-> :wr-days config range)
         fir-day (rand-nth num-days)
         num-days (remove (fn [x] (= x fir-day)) num-days)
         sec-day (rand-nth num-days)]
@@ -15,13 +15,10 @@
   [calendar days-pair]
   (let [fir-day (get days-pair 0)
         sec-day (get days-pair 1)]
-    (let [rand-calendar (update-in
-                          (update-in
-                            (update-in
-                              (update-in calendar [fir-day :not-cr-h] inc)
-                              [fir-day :cr-h] dec)
-                            [sec-day :not-cr-h] dec)
-                          [sec-day :cr-h] inc)]
+    (let [rand-calendar (-> (update-in calendar [fir-day :not-cr-h] inc)
+                            (update-in [fir-day :cr-h] dec)
+                            (update-in [sec-day :not-cr-h] dec)
+                            (update-in [sec-day :cr-h] inc))]
       (if (negative-val-in-column? rand-calendar :not-cr-h) calendar rand-calendar))))
 
 (defn randomize-calendar
@@ -30,7 +27,7 @@
   (loop [i 0
          days-pair (two-various-days)
          rand-calendar calendar]
-    (if (= i (config :randomization-lvl))
+    (if (->> :randomization-lvl config (= i))
       rand-calendar
       (recur (inc i)
              (two-various-days)
