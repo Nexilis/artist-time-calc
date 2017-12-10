@@ -13,6 +13,7 @@
 ;; TODO: add possibility to set config values using terminal
 (defn -main
   [& args]
-  (pp/print-table (build-calendar))
-  (println (-> :cr-base-h-per-day config) "avg. copyrighted hours per day +"
-           (-> :cr-surplus-h config) "surplus hours (over avg.)"))
+  (println ":day      - Day of work")
+  (println ":not-cr-h - Not-copyrighted hours")
+  (println ":cr-h     - Copyrighted hours")
+  (pp/print-table (build-calendar)))
