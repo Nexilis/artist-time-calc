@@ -7,12 +7,19 @@
                  :copyrighted-work-percentage 0.7
                  :calendar-randomization-lvl  10})
 
+(defn- calculate-sum-of-copyrighted-hours-in-period
+  [config]
+  (int (Math/floor
+         (* (config :number-of-days-in-work)
+            (config :working-hours-in-a-day)
+            (config :copyrighted-work-percentage)))))
+
 (defn calculate-config
   ([] (calculate-config def-config))
   ([in-config]
    {:pre  [(s/valid? ::sc/in-config in-config)]
     :post [(s/valid? ::sc/out-config %)]}
-   (let [out-config (conj in-config {:sum-of-copyrighted-hours-in-period (int (Math/floor (* (in-config :number-of-days-in-work) (in-config :working-hours-in-a-day) (in-config :copyrighted-work-percentage))))})]
+   (let [out-config (conj in-config {:sum-of-copyrighted-hours-in-period (calculate-sum-of-copyrighted-hours-in-period in-config)})]
      (conj out-config
            {:sum-of-worked-hours-in-period (* (out-config :number-of-days-in-work) (out-config :working-hours-in-a-day))}
            {:avg-copyrighted-hours-in-a-day (int (Math/floor (/ (out-config :sum-of-copyrighted-hours-in-period) (out-config :number-of-days-in-work))))}

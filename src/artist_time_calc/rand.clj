@@ -4,13 +4,13 @@
 
 (defn- two-various-days [config]
   (let [num-days (-> :number-of-days-in-work config range)
-        fir-day (rand-nth num-days)
-        num-days (remove (fn [x] (= x fir-day)) num-days)
-        sec-day (rand-nth num-days)]
+        fir-day  (rand-nth num-days)
+        num-days (remove #(= % fir-day) num-days)
+        sec-day  (rand-nth num-days)]
     (vector fir-day sec-day)))
 
 (defn- negative-val-in-column? [calendar column]
-  (some (fn [x] (< (x column) 0)) calendar))
+  (some #(< (% column) 0) calendar))
 
 (defn- single-calendar-randomization
   [calendar days-pair]
