@@ -1,4 +1,6 @@
-(ns artist-time-calc.rand)
+(ns artist-time-calc.rand
+  (:require [artist-time-calc.spec.conf :as sc]
+            [clojure.spec.alpha :as s]))
 
 (defn- two-various-days [config]
   (let [num-days (-> :number-of-days-in-work config range)
@@ -23,6 +25,7 @@
 (defn randomize-calendar
   "Randomizes passed calendar according to randomization lvl"
   [calendar config]
+  {:pre [(s/valid? ::sc/in-config config)]}
   (loop [i 0
          days-pair (two-various-days config)
          rand-calendar calendar]

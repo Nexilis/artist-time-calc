@@ -1,6 +1,6 @@
 (ns artist-time-calc.init
-  (:require [clojure.spec.alpha :as s]))
-; TODO: try to use spec - https://clojure.org/guides/spec
+  (:require [artist-time-calc.spec.conf :as sc]
+            [clojure.spec.alpha :as s]))
 
 (defn- calc-cr-h-this-day [remaining-surplus-h cr-base-h-per-day]
   (+ cr-base-h-per-day
@@ -10,6 +10,7 @@
   "Returns calendar (in a vector) where each day is represented by
   a dictionary {:day :not-cr-h :cr-h}"
   [config]
+  {:pre [(s/valid? ::sc/in-config config)]}
   (loop [i 1
          calendar []
          remaining-surplus-h (-> :sum-of-surplus-copyrighted-hours-in-period config)]
