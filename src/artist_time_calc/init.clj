@@ -12,12 +12,12 @@
   [config]
   (loop [i 1
          calendar []
-         remaining-surplus-h (-> :cr-surplus-h config)]
-    (let [cr-h-this-day (calc-cr-h-this-day remaining-surplus-h (-> :cr-base-h-per-day config))]
-      (if (<= i (-> :wr-days config))
+         remaining-surplus-h (-> :sum-of-surplus-copyrighted-hours-in-period config)]
+    (let [cr-h-this-day (calc-cr-h-this-day remaining-surplus-h (-> :avg-copyrighted-hours-in-a-day config))]
+      (if (<= i (-> :number-of-days-in-work config))
         (recur (inc i)
-               (conj calendar {:day i
-                               :not-cr-h (- (-> :wr-h-per-day config) cr-h-this-day)
-                               :cr-h cr-h-this-day})
+               (conj calendar {:day      i
+                               :not-cr-h (- (-> :working-hours-in-a-day config) cr-h-this-day)
+                               :cr-h     cr-h-this-day})
                (dec remaining-surplus-h))
         calendar))))

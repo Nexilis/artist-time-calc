@@ -1,7 +1,7 @@
 (ns artist-time-calc.rand)
 
 (defn- two-various-days [config]
-  (let [num-days (-> :wr-days config range)
+  (let [num-days (-> :number-of-days-in-work config range)
         fir-day (rand-nth num-days)
         num-days (remove (fn [x] (= x fir-day)) num-days)
         sec-day (rand-nth num-days)]
@@ -26,7 +26,7 @@
   (loop [i 0
          days-pair (two-various-days config)
          rand-calendar calendar]
-    (if (->> :randomization-lvl config (= i))
+    (if (->> :calendar-randomization-lvl config (= i))
       rand-calendar
       (recur (inc i)
              (two-various-days config)
