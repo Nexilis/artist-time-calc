@@ -5,10 +5,10 @@ Console app for calculating time spent on creative work to comply with Polish La
     $ artist-time-calc.exe [args]
 
 ### Args
-* -d   --days DAYS   Number of days in work  default 20
-* -h   --hours HOURS   Hours in work during a day  default 8
-* -p   --percentage PERCENTAGE   Percentage of creative work  default 0.7
-* --help" not implemented yet
+* -d | --days DAYS | Number of days in work | default 20
+* -h | --hours HOURS | Hours in work during a day | default 8
+* -p | --percentage PERCENTAGE | Percentage of creative work | default 0.7
+* --help | not implemented yet
 
 ## Compilation
 1. Install Leiningen from https://leiningen.org/
@@ -19,8 +19,10 @@ Console app for calculating time spent on creative work to comply with Polish La
 1. $ lein uberjar
 1. $ launch4jc.exe launch4j.xml
 
-## License
+## Tests
+    $ lein test
 
+## License
 Copyright © 2017 Bartek Łukasik
 
 Distributed under the GNU GENERAL PUBLIC LICENSE Version 3.
