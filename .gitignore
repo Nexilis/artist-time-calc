@@ -4,6 +4,7 @@ pom.xml.asc
 *.jar
 *.class
 *.iml
+*.exe
 /lib/
 /classes/
 /target/

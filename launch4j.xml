@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <headerType>console</headerType>
+  <outfile>artist-time-calc.exe</outfile>
+  <jar>target\uberjar\artist-time-calc-0.2-standalone.jar</jar>
+  <chdir>.</chdir>
+  <classPath>
+    <mainClass>artist_time_calc.core</mainClass>
+  </classPath>
+  <jre>
+    <minVersion>1.8.0</minVersion>
+  </jre>
+</launch4jConfig>
+<!-- to run: .\launch4jc.exe launch4j.xml -->

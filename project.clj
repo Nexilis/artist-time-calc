@@ -1,4 +1,4 @@
-(defproject artist-time-calc "0.1.1"
+(defproject artist-time-calc "0.2"
   :description "Console app for calculating time spent on creative work to comply with Polish Labor Law."
   :url "https://github.com/Nexilis/artist-time-calc"
   :license {:name "GNU GENERAL PUBLIC LICENSE Version 3"

@@ -3,6 +3,7 @@ pom.xml
 pom.xml.asc
 *.jar
 *.class
+*.exe
 .gitignore
 .git/**
 
