@@ -3,7 +3,7 @@
             [clojure.spec.alpha :as s]))
 
 (defn- two-various-days [config]
-  (let [num-days (-> :number-of-days-in-work config range)
+  (let [num-days (-> :days config range)
         fir-day  (rand-nth num-days)
         num-days (remove #(= % fir-day) num-days)
         sec-day  (rand-nth num-days)]

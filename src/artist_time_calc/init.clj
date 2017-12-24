@@ -15,10 +15,10 @@
          calendar []
          remaining-surplus-h (-> :sum-of-surplus-copyrighted-hours-in-period config)]
     (let [cr-h-this-day (calc-cr-h-this-day remaining-surplus-h (-> :avg-copyrighted-hours-in-a-day config))]
-      (if (<= i (-> :number-of-days-in-work config))
+      (if (<= i (-> :days config))
         (recur (inc i)
                (conj calendar {:day      i
-                               :not-cr-h (- (-> :working-hours-in-a-day config) cr-h-this-day)
+                               :not-cr-h (- (-> :hours config) cr-h-this-day)
                                :cr-h     cr-h-this-day})
                (dec remaining-surplus-h))
         calendar))))
