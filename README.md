@@ -12,11 +12,14 @@ Console app for calculating time spent on creative work to comply with Polish La
 
 ## Compilation
 1. Install Leiningen from https://leiningen.org/
-1. Add lein to path if needed
-1. Clone
+1. If needed add lein.bat to path
+1. git clone
 1. $ lein run
-1. or
+
+### Optionally
 1. $ lein uberjar
+1. Install Launch4j from http://launch4j.sourceforge.net/
+1. If needed add launch4jc.exe to path
 1. $ launch4jc.exe launch4j.xml
 
 ## Tests
