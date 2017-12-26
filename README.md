@@ -5,8 +5,8 @@ Console app for calculating time spent on creative work to comply with Polish La
     $ artist-time-calc.exe [args]
 
 ### Args
-* -d | --days DAYS | Number of days in work | default 20
-* -h | --hours HOURS | Hours in work during a day | default 8
+* -d | --days DAYS | Number of work days | default 20
+* -h | --hours HOURS | Hours in a work day | default 8
 * -p | --percentage PERCENTAGE | Percentage of creative work | default 0.7
 * --help | not implemented yet
 
