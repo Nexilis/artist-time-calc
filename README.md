@@ -8,7 +8,7 @@ Console app for calculating time spent on creative work to comply with Polish La
 * -d | --days DAYS | Number of work days | default 20
 * -h | --hours HOURS | Hours in a work day | default 8
 * -p | --percentage PERCENTAGE | Percentage of creative work | default 0.7
-* --help | not implemented yet
+* --help | Displays short summary
 
 ## Compilation
 1. Install Leiningen from https://leiningen.org/
