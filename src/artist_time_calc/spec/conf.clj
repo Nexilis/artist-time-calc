@@ -1,11 +1,13 @@
 (ns artist-time-calc.spec.conf
   (:require [clojure.spec.alpha :as s]))
 
-(s/def ::days pos-int?)
+(s/def ::days
+  #(and (int? %) (>= % 2) (<= % 365)))
 (s/def ::hours
   #(and (nat-int? %) (<= % 12)))
 (s/def ::percentage
   #(and (float? %) (> % 0) (<= % 1)))
+
 (s/def ::calendar-randomization-lvl nat-int?)
 (s/def ::sum-of-copyrighted-hours-in-period nat-int?)
 (s/def ::avg-copyrighted-hours-in-a-day nat-int?)
