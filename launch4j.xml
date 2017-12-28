@@ -2,7 +2,7 @@
 <launch4jConfig>
   <headerType>console</headerType>
   <outfile>artist-time-calc.exe</outfile>
-  <jar>target\uberjar\artist-time-calc-0.2-standalone.jar</jar>
+  <jar>target\uberjar\artist-time-calc-0.3-standalone.jar</jar>
   <chdir>.</chdir>
   <classPath>
     <mainClass>artist_time_calc.core</mainClass>
