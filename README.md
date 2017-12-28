@@ -1,5 +1,6 @@
 # artist-time-calc
-[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/Nexilis/artist-time-calc/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://github.com/Nexilis/artist-time-calc/blob/master/LICENSE)
+
 Console app for calculating time spent on creative work to comply with Polish Labor Law.
 
 ## Usage
